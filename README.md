@@ -12,18 +12,18 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import pytesseract
 
-# Setează calea către Tesseract doar dacă ești pe Windows
+// Setează calea către Tesseract doar dacă ești pe Windows
 pytesseract.pytesseract.tesseract_cmd = r'D:\\Cod proicet PI\\Tesseract\\tesseract.exe'
 
 
-# Funcție pentru a încărca imaginea și a o transforma în gri
+// Funcție pentru a încărca imaginea și a o transforma în gri
 def load_and_preprocess_image(image_path):
     image = Image.open(image_path).convert('L')  # Convertim imaginea la gri
     image = np.array(image)
     return image
 
 
-# Funcție pentru a aplica un filtru de detecție a marginilor (precum Sobel)
+// Funcție pentru a aplica un filtru de detecție a marginilor (precum Sobel)
 def detect_edges(image):
     kernel_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
     kernel_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
@@ -36,7 +36,7 @@ def detect_edges(image):
     return magnitude
 
 
-# Funcție de convoluție pentru aplicarea unui filtru
+// Funcție de convoluție pentru aplicarea unui filtru
 def convolve(image, kernel):
     image_height, image_width = image.shape
     kernel_height, kernel_width = kernel.shape
@@ -54,7 +54,7 @@ def convolve(image, kernel):
     return output
 
 
-# Funcție pentru a identifica și extrage contururi fără recursivitate
+// Funcție pentru a identifica și extrage contururi fără recursivitate
 def find_contours(edge_image):
     contours = []
     visited = np.zeros_like(edge_image, dtype=bool)
@@ -81,7 +81,7 @@ def find_contours(edge_image):
     return contours
 
 
-# Funcție de a desena contururile pe imagine
+// Funcție de a desena contururile pe imagine
 def draw_contours(image, contours):
     image_copy = image.copy()
     for contour in contours:
@@ -90,7 +90,7 @@ def draw_contours(image, contours):
     return image_copy
 
 
-# Funcție pentru extragerea și afișarea textului folosind OCR
+// Funcție pentru extragerea și afișarea textului folosind OCR
 def extract_text_with_ocr(image_path):
     image = Image.open(image_path)
     text = pytesseract.image_to_string(image)
@@ -98,16 +98,16 @@ def extract_text_with_ocr(image_path):
     print(text)
 
 
-# Cod principal de execuție
+// Cod principal de execuție
 image_path = "D://cod proicet PI//test.bmp"
 image = load_and_preprocess_image(image_path)
 edge_image = detect_edges(image)
 contours = find_contours(edge_image)
 
-# Vizualizăm imaginea finală cu contururile detectate
+// Vizualizăm imaginea finală cu contururile detectate
 final_image = draw_contours(image, contours)
 plt.imshow(final_image, cmap='gray')
 plt.show()
 
-# Extragere și afișare text OCR
+// Extragere și afișare text OCR
 extract_text_with_ocr(image_path)
