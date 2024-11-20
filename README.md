@@ -12,9 +12,12 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
     import matplotlib.pyplot as plt
     from PIL import Image
     import pytesseract
+    import time
+    start_time = time.time()
 
-// Calea către Tesseract
 
+// Setează calea către Tesseract
+    
     pytesseract.pytesseract.tesseract_cmd = r'D:\\Cod proicet PI\\Tesseract\\tesseract.exe'
 
 
@@ -27,7 +30,7 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
 
 
 // Funcție pentru a aplica un filtru de detecție a marginilor (precum Sobel)
-
+    
     def detect_edges(image):
     kernel_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
     kernel_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
@@ -41,13 +44,13 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
 
 
 // Funcție de convoluție pentru aplicarea unui filtru
-    
+
     def convolve(image, kernel):
     image_height, image_width = image.shape
     kernel_height, kernel_width = kernel.shape
     pad_height = kernel_height // 2
     pad_width = kernel_width // 2
-    
+
     padded_image = np.pad(image, ((pad_height, pad_height), (pad_width, pad_width)), mode='constant', constant_values=0)
 
     output = np.zeros_like(image)
@@ -59,7 +62,7 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
     return output
 
 
-// Funcție pentru a identifica și extrage contururi fără recursivitate
+ // Funcție pentru a identifica și extrage contururi fără recursivitate
     
     def find_contours(edge_image):
     contours = []
@@ -88,7 +91,7 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
 
 
 // Funcție de a desena contururile pe imagine
-
+    
     def draw_contours(image, contours):
     image_copy = image.copy()
     for contour in contours:
@@ -98,7 +101,7 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
 
 
 // Funcție pentru extragerea și afișarea textului folosind OCR
-
+    
     def extract_text_with_ocr(image_path):
     image = Image.open(image_path)
     text = pytesseract.image_to_string(image)
@@ -108,9 +111,13 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
 
 // Cod principal de execuție
 
-
-    image_path = "D://cod proicet PI//test.bmp"
-    image = load_and_preprocess_image(image_path)
+    image_path = "D://cod proicet PI//motivational.jfif"
+    image_path2 = "D://cod proicet PI//test.bmp"
+    image_path3 = "D://cod proicet PI//goodmorning.jfif"
+    image_path4 = "D://cod proicet PI//a.jpg"
+    image_path5 = "D://cod proicet PI//pixel.jfif"
+    image_path6 = "D://cod proicet PI//green3.jfif"
+    image = load_and_preprocess_image(image_path6)
     edge_image = detect_edges(image)
     contours = find_contours(edge_image)
 
@@ -120,6 +127,14 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
     plt.imshow(final_image, cmap='gray')
     plt.show()
 
+
 // Extragere și afișare text OCR
     
-    extract_text_with_ocr(image_path)
+    extract_text_with_ocr(image_path6)
+//Afișare timp de execuțtie
+
+    end_time = time.time()
+
+
+    execution_time = end_time - start_time
+    print(f"Timpul de execuție: {execution_time:.4f} secunde")
