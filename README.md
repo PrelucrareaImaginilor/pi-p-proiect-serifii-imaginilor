@@ -24,49 +24,49 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
 // Funcție pentru a încărca imaginea și a o transforma în gri
     
     def load_and_preprocess_image(image_path):
-    image = Image.open(image_path).convert('L')  # Convertim imaginea la gri
-    image = np.array(image)
-    return image
+        image = Image.open(image_path).convert('L')  # Convertim imaginea la gri
+        image = np.array(image)
+        return image
 
 
 // Funcție pentru a aplica un filtru de detecție a marginilor (precum Sobel)
     
     def detect_edges(image):
-    kernel_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
-    kernel_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
+        kernel_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+        kernel_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
 
-    grad_x = convolve(image, kernel_x)
-    grad_y = convolve(image, kernel_y)
+        grad_x = convolve(image, kernel_x)
+        grad_y = convolve(image, kernel_y)
 
-    magnitude = np.sqrt(grad_x ** 2 + grad_y ** 2)
-    magnitude = np.clip(magnitude, 0, 255).astype(np.uint8)
-    return magnitude
+        magnitude = np.sqrt(grad_x ** 2 + grad_y ** 2)
+        magnitude = np.clip(magnitude, 0, 255).astype(np.uint8)
+        return magnitude
 
 
 // Funcție de convoluție pentru aplicarea unui filtru
 
     def convolve(image, kernel):
-    image_height, image_width = image.shape
-    kernel_height, kernel_width = kernel.shape
-    pad_height = kernel_height // 2
-    pad_width = kernel_width // 2
+        image_height, image_width = image.shape
+        kernel_height, kernel_width = kernel.shape
+        pad_height = kernel_height // 2
+        pad_width = kernel_width // 2
 
-    padded_image = np.pad(image, ((pad_height, pad_height), (pad_width, pad_width)), mode='constant', constant_values=0)
+        padded_image = np.pad(image, ((pad_height, pad_height), (pad_width, pad_width)), mode='constant', constant_values=0)
 
-    output = np.zeros_like(image)
-    for i in range(image_height):
-        for j in range(image_width):
-            region = padded_image[i:i + kernel_height, j:j + kernel_width]
-            output[i, j] = np.sum(region * kernel)
+        output = np.zeros_like(image)
+        for i in range(image_height):
+            for j in range(image_width):
+                region = padded_image[i:i + kernel_height, j:j + kernel_width]
+                output[i, j] = np.sum(region * kernel)
 
-    return output
+        return output
 
 
  // Funcție pentru a identifica și extrage contururi fără recursivitate
     
     def find_contours(edge_image):
-    contours = []
-    visited = np.zeros_like(edge_image, dtype=bool)
+        contours = []
+        visited = np.zeros_like(edge_image, dtype=bool)
 
     def dfs_iterative(x, y):
         stack = [(x, y)]
@@ -93,20 +93,20 @@ Subiectul proiectului consta in recunoasterea si detectia textului din imagini p
 // Funcție de a desena contururile pe imagine
     
     def draw_contours(image, contours):
-    image_copy = image.copy()
-    for contour in contours:
-        for point in contour:
-            image_copy[point[0], point[1]] = 255  # Sau o culoare pentru a marca contururile
-    return image_copy
+        image_copy = image.copy()
+        for contour in contours:
+            for point in contour:
+                image_copy[point[0], point[1]] = 255  # Sau o culoare pentru a marca contururile
+        return image_copy
 
 
 // Funcție pentru extragerea și afișarea textului folosind OCR
     
     def extract_text_with_ocr(image_path):
-    image = Image.open(image_path)
-    text = pytesseract.image_to_string(image)
-    print("Text extras din imagine:")
-    print(text)
+        image = Image.open(image_path)
+        text = pytesseract.image_to_string(image)
+        print("Text extras din imagine:")
+        print(text)
 
 
 // Cod principal de execuție
