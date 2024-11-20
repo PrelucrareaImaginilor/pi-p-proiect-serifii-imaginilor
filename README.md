@@ -1,8 +1,13 @@
 PI-P saptamana 2: Detecția și recunoașterea textului din imagini pentru module de tipul Text2Speech
 
+// Săptmămâna 1
 https://docs.google.com/document/d/1AIKrhR-at9Ddsbdf0rw3rDZAvuAH2lrfk-0f-0-BHA0/edit?usp=sharing
 
+// Diagrama
 https://docs.google.com/drawings/d/1yUj31zSq9vVdcV56exSvyD796qpisfZXES-9Hb2sUO0/edit
+
+//Prezentare Etapa 1
+https://tuiasiro-my.sharepoint.com/:p:/g/personal/ioan-gabriel_rusu_student_tuiasi_ro/ERQy04cE-4xBovRXb2pxik0B-PUs4pLwTpUs3kjK5o7t8g?e=DCErNS
 
 Subiectul proiectului consta in recunoasterea si detectia textului din imagini pentru module de tipul Text2Speech. Prima data se realizeaza fotografia cu textul dorit a fi incarcat pentru a fi rostit. Imaginiea se incarca in memoria laptopului ca apoi sa fie incacrata in cod pentru prelucrare. Codul foloseste tehnologia OCR (Optical Character Recognition) pentru a detecta, extrage si converti intr-un text document. In final, textul ajunge sa fie citit si reprodus de catre speaker-ul dispozitivului.
 
